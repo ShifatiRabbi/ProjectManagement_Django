@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-dark" style="margin-bottom: 100px">
+      <div class="text-center"><a class="navbar-brand text-success" href="#">Project Management System</a></div>
+        <nav class="navbar navbar-expand-lg container ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'project_list' %}">View_All_Projects</a>
+                    </li>
+
+                    {% if user.is_authenticated and user.user_type == "student" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create_project' %}">Create_New_Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'inbox' %}">Incoming_Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sent' %}">Outgoing_Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'send_message' user.username %}">Start_New_Chat</a>
+                    </li>
+                    {% endif %}
+
+                    {% if user.is_authenticated and user.user_type == "teacher" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'idea_list' %}">View_All_Ideas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'inbox' %}">Incoming_Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sent' %}">Outgoing_Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'send_message' user.username %}">Start_New_Chat</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'search_project' %}">Search_Projects</a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li> 
+                    <li class="nav-item" style="">
+                        <b style="color:Red">{{ user.username }}</b> <br> <b style="color:white">you are a {{ user.user_type }}</b>
+                    </li>
+                    {% else %}
+
+                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>  
+            {% endif %}
+        </ul>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="text-center text-lg-start bg-dark text-light" style="margin-top: 100px">
+        <!-- Section: Social media -->
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      
+        </section>
+        <!-- Section: Social media -->
+      
+        <!-- Section: Links  -->
+        <section class="">
+          <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <!-- Content -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                  <i class="fas fa-gem me-3 text-secondary" align="center"></i>Organization Name
+                </h6>
+                <p align="center">
+                  Jahangirnagar University
+                </p>
+              </div>
+      
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                <h6 class="text-uppercase fw-bold mb-4">
+                  Languages
+                </h6>
+                <p>
+                  <a href="#!" class="text-reset">Javascript</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Html</a>
+                </p>
+               
+                <p>
+                  <a href="#!" class="text-reset">css</a>
+                </p>
+                  <p>
+                  <a href="#" class="text-reset">Python</a>
+                </p>
+              </div>
+      
+              <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">
+                  Useful links
+                </h6>
+                <p>
+                  <a href="#!" class="text-reset">Settings</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Home</a>
+                </p>
+                <p>
+                  <a href="#!" class="text-reset">Help</a>
+                </p>
+              </div>
+              <!-- Grid column -->
+      
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                <p><i class="fas fa-home me-3 text-secondary"></i> Mirpur-1, Dhaka</p>
+                <p>
+                  <i class="fas fa-envelope me-3 text-secondary"></i>
+                  sr9986.abc@gmail.com
+                </p>
+                <p><i class="fas fa-phone me-3 text-secondary"></i> 01621709986</p>
+              </div>
+      
+            </div>
+      
+          </div>
+        </section>
+      
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
+          © 2022 Copyright:
+          <a class="text-reset fw-bold" href="#">SR_Creation</a>
+        </div>
+      
+      </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

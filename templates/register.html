@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2 class="text-center bg-primary">Register</h2>
+  {% csrf_token %}
+    <div class="card-body">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <p class="messages alert alert-success" >{{ message }}</p>
+                {% endif %}
+                {% if message.tags == 'error' %}
+                    <p class="messages alert alert-danger" >{{ message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
